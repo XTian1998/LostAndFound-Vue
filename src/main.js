@@ -19,11 +19,21 @@ Vue.filter('dateFormat', function(originVal) {
   let y = dt.getFullYear()
   let m = (dt.getMonth() + 1 + '').padStart(2, '0')
   let d = (dt.getDate() + '').padStart(2, '0')
+
+  return `${y}-${m}-${d}`
+})
+
+Vue.filter('timeFormat', function(originVal) {
+  let dt = new Date(originVal)
+
+  let y = dt.getFullYear()
+  let m = (dt.getMonth() + 1 + '').padStart(2, '0')
+  let d = (dt.getDate() + '').padStart(2, '0')
   let hh = (dt.getHours() + '').padStart(2, '0')
   let mm = (dt.getMinutes() + '').padStart(2, '0')
   let ss = (dt.getSeconds() + '').padStart(2, '0')
 
-  return `${y}-${m}-${d}`
+  return `${y}-${m}-${d}  ${hh}:${mm}:${ss}`
 })
 
 new Vue({

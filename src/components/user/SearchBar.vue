@@ -134,7 +134,7 @@ export default {
       this.form = {
         info: "寻物启事",
         type: "",
-        date: "",
+        date: 0,
         place: "",
       };
     },

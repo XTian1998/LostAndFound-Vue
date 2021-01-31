@@ -27,10 +27,10 @@
         <div class="info_menu" v-if="menuvisible">
           <i></i>
           <ul>
-            <li>个人中心</li>
-            <li>我的发布</li>
-            <li>我的留言</li>
-            <li>我的消息</li>
+            <li @click="$router.push('/account/user')">个人资料</li>
+            <li @click="$router.push('/account/release')">我的发布</li>
+            <li @click="$router.push('/account/message')">我的留言</li>
+            <li @click="$router.push('/account/news')">系统消息</li>
             <li @click="signout">退出登录</li>
           </ul>
         </div>

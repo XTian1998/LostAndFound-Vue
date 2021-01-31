@@ -9,6 +9,11 @@ const Register = () => import('../views/user/Register')
 const Details = () => import('../views/user/Details')
 const About = () => import('../views/user/About')
 const Welcome = () => import('../views/user/Welcome')
+const Account = () => import('../views/user/account/Account')
+const Release = () => import('../views/user/account/Release')
+const User = () => import('../views/user/account/User')
+const Message = () => import('../views/user/account/Message')
+const News = () => import('../views/user/account/News')
 
 const routes = [
   {
@@ -42,6 +47,29 @@ const routes = [
   {
     path: "/register",
     component: Register
+  },
+  {
+    path: '/account',
+    component: Account,
+    redirect: '/account/user',
+    children: [
+      {
+        path: '/account/user',
+        component: User
+      },
+      {
+        path: '/account/release',
+        component: Release
+      },
+      {
+        path: '/account/message',
+        component: Message
+      },
+      {
+        path: '/account/news',
+        component: News
+      },
+    ]
   }
 ]
 
