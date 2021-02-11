@@ -13,18 +13,28 @@ import '@/assets/css/global.css'
 
 Vue.prototype.baseURL = 'http://127.0.0.1:5000/',
 
-Vue.filter('dateFormat', function(originVal) {
-  let dt = new Date(originVal)
+  Vue.filter('dateFormat', function (originVal) {
+    let tt = Date.parse(originVal)
+    let t = new Date()
+    let zone = t.getTimezoneOffset()*60*1000
+    let rt = tt+zone
+    let dt = new Date()
+    dt.setTime(rt)
 
-  let y = dt.getFullYear()
-  let m = (dt.getMonth() + 1 + '').padStart(2, '0')
-  let d = (dt.getDate() + '').padStart(2, '0')
+    let y = dt.getFullYear()
+    let m = (dt.getMonth() + 1 + '').padStart(2, '0')
+    let d = (dt.getDate() + '').padStart(2, '0')
 
-  return `${y}-${m}-${d}`
-})
+    return `${y}-${m}-${d}`
+  })
 
-Vue.filter('timeFormat', function(originVal) {
-  let dt = new Date(originVal)
+Vue.filter('timeFormat', function (originVal) {
+  let tt = Date.parse(originVal)
+  let t = new Date()
+  let zone = t.getTimezoneOffset()*60*1000
+  let rt = tt+zone
+  let dt = new Date()
+  dt.setTime(rt)
 
   let y = dt.getFullYear()
   let m = (dt.getMonth() + 1 + '').padStart(2, '0')

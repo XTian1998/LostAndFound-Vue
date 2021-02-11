@@ -15,10 +15,64 @@ const User = () => import('../views/user/account/User')
 const Message = () => import('../views/user/account/Message')
 const News = () => import('../views/user/account/News')
 
+const AdminHome = () => import('../views/admin/Home')
+const AdminLogin = () => import('../views/admin/Login')
+const AdminWelcome = () => import('../views/admin/Welcome')
+const Notice = () => import('../views/admin/Notice')
+const AddNotice = () => import('../views/admin/AddNotice')
+const AdminMessage = () => import('../views/admin/Message')
+const AdminReport = () => import('../views/admin/Report')
+const UserManage = () => import('../views/admin/UserManage')
+const ItemType = () => import('../views/admin/ItemType')
+const ItemInfo = () => import('../views/admin/ItemInfo')
+
 const routes = [
   {
     path: "/",
-    redirect: "/home"
+    redirect: "/admin/home"
+  },
+  {
+    path: "/admin/login",
+    component: AdminLogin
+  },
+  {
+    path: "/admin/home",
+    component: AdminHome,
+    redirect: "/admin/welcome",
+    children: [
+      {
+        path: '/admin/welcome',
+        component: AdminWelcome
+      },
+      {
+        path: '/admin/notice',
+        component: Notice
+      },
+      {
+        path: '/admin/addnotice',
+        component: AddNotice
+      },
+      {
+        path: '/admin/message',
+        component: AdminMessage
+      },
+      {
+        path: '/admin/report',
+        component: AdminReport
+      },
+      {
+        path: '/admin/user_manage',
+        component: UserManage
+      },
+      {
+        path: '/admin/item_type',
+        component: ItemType
+      },
+      {
+        path: '/admin/lost_and_found',
+        component: ItemInfo
+      },
+    ]
   },
   {
     path: "/home",
@@ -75,6 +129,18 @@ const routes = [
 
 const router = new VueRouter({
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const tokenStr = window.sessionStorage.getItem('token')
+  if (to.path.startsWith('/admin') && to.path != '/admin/login' && !tokenStr) {
+    return next('/admin/login')
+  }
+
+  if (to.path == '/account/user' && (!tokenStr)) {
+    return next('/login')
+  }
+  next()
 })
 
 const originalPush = VueRouter.prototype.push

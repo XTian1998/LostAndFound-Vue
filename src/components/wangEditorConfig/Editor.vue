@@ -1,16 +1,20 @@
 <template>
   <div>
-    <div id="editor"></div>
+    <div id="editor" ref="area">
+      <p>{{ editorContent }}</p>
+    </div>
   </div>
 </template>
 
 <script>
 import E from "wangeditor";
+import { request } from "@/network/request";
 
 export default {
   data() {
     return {
       editorContent: "",
+      com: "",
     };
   },
   mounted() {
@@ -32,9 +36,22 @@ export default {
       "justify", // 对齐方式
       "emoticon", // 表情
       "table", // 表格
+      "image",
       "undo", // 撤销
       "redo", // 重复
     ];
+    editor.config.customUploadImg = function (files, insertImgFn) {
+      var formData = new FormData();
+      formData.append("file", files[0]);
+      request({
+        url: '/uploads/',
+        method: 'post',
+        data: formData
+      }).then(res => {
+        insertImgFn('http://127.0.0.1:5000'+res.data.data.url)
+      })
+    };
+    this.com = editor;
     editor.create();
   },
 };
