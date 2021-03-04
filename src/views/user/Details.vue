@@ -50,8 +50,8 @@
             <li v-else>认领状态：寻找中</li>
             <li>地点：{{ detail.place }}</li>
             <li>时间：{{ detail.date | dateFormat }}</li>
-            <li>联系人：{{ detail.username }}</li>
-            <li>联系电话：{{ detail.phone }}</li>
+            <li>联系人：{{ detail.username | show}}</li>
+            <li>联系电话：{{ detail.phone | show}}</li>
             <li>
               详情:
               <div v-html="detail.desc"></div>

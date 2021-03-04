@@ -68,7 +68,7 @@
       </el-form-item>
       <el-form-item>
         <label>详细描述：</label>
-        <editor @change="change" />
+        <editor @change="change" ref="editor" :initialContent="form.desc" />
       </el-form-item>
       <el-form-item>
         <el-button @click="admit">发布</el-button>
@@ -192,6 +192,9 @@ export default {
         name: "",
       };
       this.place = [];
+      this.$nextTick(() => {
+        this.$refs.editor.com.txt.html(this.form.desc);
+      });
     },
     admit() {
       this.$refs.formRef.validate((valid) => {

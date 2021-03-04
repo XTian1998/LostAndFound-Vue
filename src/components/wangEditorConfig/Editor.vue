@@ -36,7 +36,7 @@ export default {
       "justify", // 对齐方式
       "emoticon", // 表情
       "table", // 表格
-      "image",
+      "image", //图片
       "undo", // 撤销
       "redo", // 重复
     ];

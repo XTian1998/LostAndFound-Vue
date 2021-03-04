@@ -42,13 +42,13 @@ import {request} from '@/network/request'
 .box {
   background-color: #eee;
   padding: 10px;
-  margin: 20px 0;
+  margin: 20px 20px 20px 0;
   border-radius: 5px;
 }
 .box p {
   text-indent: 2em;
 }
 .box span {
-  margin-left: 410px;
+  margin-left: 350px;
 }
 </style>

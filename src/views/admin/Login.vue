@@ -32,8 +32,8 @@ export default {
   data() {
     return {
       userInfo: {
-        id: "10001",
-        password: "123456",
+        id: "",
+        password: "",
       },
       loginFormRules: {
         id: [{ required: true, message: "请输入管理员工号", trigger: "blur" }],

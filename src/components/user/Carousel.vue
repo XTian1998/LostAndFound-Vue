@@ -10,18 +10,24 @@
     >
       <el-carousel-item v-for="item in item_list" :key="item.id">
         <div class="content">
-          <img :src="baseURL + item.image" alt="" />
+          <div>
+            <img
+              :src="baseURL + item.image"
+              alt=""
+              v-if="item.image != '' && item.image != undefined"
+            />
+            <img v-else src="~@/assets/images/default.png" alt="" />
+          </div>
           <div class="info">
-              <span>编号：{{ item.id }}</span>
-              <span>类型：{{ item.info }}</span>
-              <span>物品种类：{{ item.type }}</span>
-              <span>校区：{{ item.campus }}</span>
-              <span>地点：{{ item.place }}</span>
-              <span>日期：{{ item.date | dateFormat}}</span>
-              <span>联系人：{{ item.username }}</span>
-              <span>联系号码：{{ item.phone }}</span>
-              <span v-if="item.info=='寻物启事'">状态：未认领</span>
-              <span v-else>状态：寻找中</span>
+            <span>编号：{{ item.id }}</span>
+            <span>类型：{{ item.info }}</span>
+            <span>物品种类：{{ item.type }}</span>
+            <span>校区：{{ item.campus }}</span>
+            <span>地点：{{ item.place }}</span>
+            <span>日期：{{ item.date | dateFormat }}</span>
+            <span>联系人：{{ item.username | show}}</span>
+            <span>联系号码：{{ item.phone | show}}</span>
+            <span >状态：已找回</span>
           </div>
         </div>
       </el-carousel-item>
@@ -56,10 +62,9 @@ export default {
         url: "/iteminfo/",
         method: "get",
         params: {
-          image: "true",
           pagenum: 1,
           pagesize: 10,
-          is_claim: false,
+          is_claim: true,
           is_delete: false,
           campus: this.$store.state.campus,
         },

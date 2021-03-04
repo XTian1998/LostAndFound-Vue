@@ -29,7 +29,7 @@ const ItemInfo = () => import('../views/admin/ItemInfo')
 const routes = [
   {
     path: "/",
-    redirect: "/admin/home"
+    redirect: "/home"
   },
   {
     path: "/admin/login",

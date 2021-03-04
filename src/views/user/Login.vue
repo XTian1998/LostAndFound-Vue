@@ -27,8 +27,8 @@ export default {
   data() {
     return {
       loginForm: {
-        id: "17001",
-        password: "123456",
+        id: "",
+        password: "",
       },
       loginFormRules: {
         id: [{ required: true, message: "请输入学号", trigger: "blur" },{ min: 5, max: 20, message: '长度在 5 到 20 个字符', trigger: 'blur' }],

@@ -46,6 +46,13 @@ Vue.filter('timeFormat', function (originVal) {
   return `${y}-${m}-${d}  ${hh}:${mm}:${ss}`
 })
 
+Vue.filter('show', function(originVal) {
+  if (window.sessionStorage.getItem('token')) {
+    return originVal
+  }
+  return "请登录后查看"
+})
+
 new Vue({
   router,
   store,

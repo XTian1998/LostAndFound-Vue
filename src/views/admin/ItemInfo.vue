@@ -96,29 +96,75 @@
         </div>
       </div>
 
+      <hr />
+      <br />
+      <br />
+      <br />
+
       <el-table :data="item_list" style="width: 90%" border stripe>
+        <el-table-column type="expand">
+          <template v-slot="scope">
+            <div class="wrapper">
+              <div class="details">
+                <div>物品类别：{{ scope.row.type }}</div>
+                <span>物品图片：</span>
+                <div class="imgs">
+                  <img
+                    :src="baseURL + scope.row.image"
+                    alt=""
+                    v-if="scope.row.image != '' && scope.row.image != undefined"
+                  />
+                  <img v-else src="~@/assets/images/default.png" alt="" />
+                </div>
+              </div>
+              <div>
+                <span>物品描述：</span>
+                <div v-html="scope.row.desc"></div>
+              </div>
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column prop="id" label="编号" width="180"> </el-table-column>
-        <el-table-column prop="info" label="类型" width="180">
+        <el-table-column prop="info" label="类型" width="150">
         </el-table-column>
-        <el-table-column prop="campus" label="校区" width="180">
+        <el-table-column prop="campus" label="校区" width="120">
         </el-table-column>
-        <el-table-column prop="place" label="编号" width="180">
+        <el-table-column prop="place" label="地点" width="120">
         </el-table-column>
-        <el-table-column label="日期" width="180">
+        <el-table-column label="日期" width="120">
           <template v-slot="scope">
             {{ scope.row.date | dateFormat }}
           </template>
         </el-table-column>
-        <el-table-column label="描述" width="180">
+        <el-table-column label="描述" width="280">
           <template v-slot="scope">
             <div v-html="scope.row.desc"></div>
           </template>
         </el-table-column>
-        <el-table-column prop="uid" label="学号" width="180"> </el-table-column>
-        <el-table-column label="物品状态">
+        <el-table-column prop="uid" label="学号" width="120"> </el-table-column>
+        <el-table-column label="物品状态" width="100"
+          >>
           <template v-slot="scope">
             <el-tag type="success" v-if="scope.row.is_claim">已找回</el-tag>
             <el-tag type="warning" v-else>未找回</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="是否删除" width="100"
+          >>
+          <template v-slot="scope">
+            <el-tag type="success" v-if="scope.row.is_delete">已删除</el-tag>
+            <el-tag type="warning" v-else>未删除</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作"
+          >>
+          <template v-slot="scope">
+            <el-button
+              @click="deleteInfo(scope.row.id)"
+              type="danger"
+              size="mini"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -254,6 +300,31 @@ export default {
       this.pagenum = page;
       this.getItemInfo();
     },
+    deleteInfo(id) {
+      this.$confirm("此操作将永久删除该信息, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          request({
+            url: `/admin/item/`,
+            method: "delete",
+            data: {
+              id,
+            },
+          }).then((res) => {
+            if (res.data.meta.status !== 204) {
+              return this.$message.error(res.data.meta.msg);
+            }
+            this.$message.success(res.data.meta.msg);
+            this.getItemInfo();
+          });
+        })
+        .catch(() => {
+          this.$message.info("已取消删除！");
+        });
+    },
   },
 };
 </script>
@@ -263,7 +334,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  margin-bottom: 100px;
+  margin-bottom: 70px;
 }
 .el-input {
   width: 250px;
@@ -274,5 +345,16 @@ export default {
 .section {
   margin-top: 20px;
   margin-right: 80px;
+}
+.wrapper {
+  display: flex;
+  font-size: 16px;
+  line-height: 2;
+}
+.details {
+  margin-right: 100px;
+}
+.imgs img {
+  width: 250px;
 }
 </style>

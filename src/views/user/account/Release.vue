@@ -171,7 +171,7 @@ export default {
 }
 .info_box ul li:last-child {
   position: relative;
-  overflow: hidden;
+  overflow: auto;
 }
 .info_box ul li:last-child div {
   position: absolute;
